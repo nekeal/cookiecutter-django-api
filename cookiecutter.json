@@ -1,0 +1,19 @@
+{
+    "project_name": "django_app",
+    "full_project_name": "Sample Django app",
+    "github_username": "The owner of the repository. Either your github username or organization name.",
+    "github_repository_name": "{{ cookiecutter.project_name }}",
+    "email": "mail@example.com",
+    "description": "", 
+    "use_jazzmin": "y",
+    "use_drf": "y",
+    "use_drf_flex_fields": "y",
+    "use_jwt": "y",
+    "use_django_filters": "y",
+    "use_django_extensions": "y",
+    "use_tox": "y",
+    "use_celery": "y",
+    "use_dbbackup": "y",
+    "use_react_frontend": "y"
+
+}

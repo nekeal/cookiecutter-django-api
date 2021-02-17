@@ -1,0 +1,67 @@
+[tool.black]
+max-line-length = 88
+
+[tool.isort]
+profile = "black"
+
+[tool.coverage.report]
+branch = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:"
+]
+omit = [
+    "**/fixtures.py",
+    "manage.py",
+    "**/wsgi.py",
+    "**/settings/*.py",
+    "**/migrations/*.py",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "{{ cookiecutter.project_name }}.settings.local"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+norecursedirs = ["deployment*",
+                 ".git/*",
+                 ".mypy_cache/*",
+                 ".pytest_cache/*",
+                 "migrations/*",
+                 "{{ cookiecutter.project_name }}/frontend/*"
+]
+addopts = "--nomigrations"
+
+{%- if cookiecutter.use_tox == 'y' %}
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py38, py39, flake8, black, isort, mypy
+skipsdist = True
+
+[gh-actions]
+python =
+    3.8: py38
+    3.9: py39
+
+[testenv:flake8]
+basepython = python
+deps = flake8
+commands = flake8 --format=default {{ cookiecutter.project_name }}
+
+[testenv:black]
+deps = black
+commands = black --check {{ cookiecutter.project_name }}
+
+[testenv:isort]
+deps = isort
+commands = isort --check {{ cookiecutter.project_name }}
+
+[testenv:mypy]
+deps = -r requirements/dev.txt
+commands = mypy {{ cookiecutter.project_name }}
+
+[testenv]
+setenv = PYTHONPATH = {toxinidir}
+deps = -r requirements/dev.txt
+commands = pytest {{ cookiecutter.project_name }}
+"""
+{%- endif %}

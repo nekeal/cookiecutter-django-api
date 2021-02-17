@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 88
+ignore = F401,W503
+exclude = */tests/*,*/settings/*,*/migrations/*,manage.py
+format = abspath

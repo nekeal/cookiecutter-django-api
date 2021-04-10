@@ -1,5 +1,5 @@
 {%- raw %}
-name: Django application
+name: CI
 on: [push, pull_request]
 env:
   POSTGRES_HOST: localhost
@@ -20,10 +20,10 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v1
-      - name: Set up Python 3.7
+      - name: Set up Python 3.8
         uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: psycopg2 prerequisites
         run: sudo apt-get install python-dev libpq-dev
       - name: Install dependencies

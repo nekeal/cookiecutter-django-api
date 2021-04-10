@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repository_name}}/actions/workflows/backend.yml/badge.svg)](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repository_name}}/actions)
 
-{{cookiecutter.description}}
+{{ cookiecutter.description }}
 
 # Prerequisites
 
@@ -12,7 +12,7 @@
 
 ## Docker way
 - [Docker](https://docs.docker.com/engine/install/)  
-- [Docker Compose](https://docs.docker.com/compose/install/)  
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Local Development
 

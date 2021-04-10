@@ -70,7 +70,7 @@ autoformatters: ## runs auto formatters
 pip-compile:
 	ls requirements/*.in | xargs -n 1 pip-compile
 
-bootstrap: pip-compile  ## bootstrap project
+bootstrap: ## bootstrap project
 	pip install -r requirements/dev.txt
 	python manage.py migrate
 	python manage.py loaddata fixtures/*

@@ -9,6 +9,8 @@ PROJECT_NAME = "{{ cookiecutter.project_name }}"
 BASE_DIR = Path(__file__).parents[2]
 APPS_DIR = BASE_DIR.joinpath(PROJECT_NAME)
 
+SECRET_KEY = env("DJANGO_SECRET_KEY", "")
+
 DEBUG = True
 
 ALLOWED_HOSTS = []

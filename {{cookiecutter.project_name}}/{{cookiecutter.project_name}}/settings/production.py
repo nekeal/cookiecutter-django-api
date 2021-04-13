@@ -1,8 +1,18 @@
+{%- if cookiecutter.use_sentry == "y" %}
+from sentry_sdk.integrations.django import DjangoIntegration
+{%- endif %}
 from .base import *
 
 DEBUG = False
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", ["*"])
+
+{%- if cookiecutter.use_sentry == "y" %}
+sentry_sdk.init(
+    dsn="",
+    integrations=[DjangoIntegration()],
+)
+{%- endif %}
 
 # ------------- LOGGING -------------
 LOGGING = {

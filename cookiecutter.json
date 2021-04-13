@@ -9,6 +9,7 @@
     "use_drf": "y",
     "use_drf_flex_fields": "y",
     "use_jwt": "y",
+    "use_sentry": "y",
     "use_django_filters": "y",
     "use_django_extensions": "y",
     "use_tox": "y",

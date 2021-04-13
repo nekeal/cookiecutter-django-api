@@ -1,6 +1,8 @@
-{%- if cookiecutter.use_sentry == "y" %}
+{% if cookiecutter.use_sentry == "y" -%}
+import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 {%- endif %}
+
 from .base import *
 
 DEBUG = False

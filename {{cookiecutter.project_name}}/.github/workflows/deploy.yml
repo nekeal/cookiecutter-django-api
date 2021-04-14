@@ -1,0 +1,46 @@
+name: Deploy application
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      ANSIBLE_VAULT_PASSWORD_FILE: vault
+      ANSIBLE_HOST_KEY_CHECKING: False
+      ANSIBLE_STRATEGY_PLUGINS: $SITE_PACKAGES/ansible_mitogen/plugins/strategy
+      ANSIBLE_NO_LOG: True
+    defaults:
+      run:
+        working-directory: deployment/ansible-play-{{ cookiecutter.project_name }}
+{%- raw %}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Create vault file
+        run: "echo $VAULT_PASSOWRD > $ANSIBLE_VAULT_PASSWORD_FILE"
+        env:
+          VAULT_PASSOWRD: ${{ secrets.VAULT_PASSWORD }}
+      - name: Setup SSH Keys and known_hosts
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install python requirements
+        run: pip install --user -r ../../requirements/deployment.txt
+      - name: Register python site packages
+        run: echo "SITE_PACKAGES=$(python -m site --user-site)" >> $GITHUB_ENV
+      - name: Wait for all other check to complete
+        uses: lewagon/wait-on-check-action@master
+        with:
+          ref: ${{ github.ref }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          running-workflow-name: deploy
+{%- endraw %}
+      - name: Run deployment check
+        run: ansible-playbook -i inventory.txt {{ cookiecutter.project_name }}.yml -t -e docker_container "_docker_tag={{ '${{ github.sha }}' }}"
+

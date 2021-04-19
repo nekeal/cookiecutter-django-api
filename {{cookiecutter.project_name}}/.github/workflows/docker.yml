@@ -33,7 +33,7 @@ jobs:
             ${{ secrets.REGISTRY_URL }}/${{ secrets.FRONT_DOCKER_REPOSITORY }}:${{ github.sha }}
       {%- endraw %}
       {%- endif %}
-      - name: Build & Backend Publish Image
+      - name: Build & Publish Backend Image
         uses: docker/build-push-action@v2
         with:
           push: true

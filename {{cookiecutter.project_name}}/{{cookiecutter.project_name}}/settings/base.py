@@ -143,6 +143,7 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.joinpath("media")
 
 {%- if cookiecutter.use_react_frontend == 'y' %}
+
 # ------------- WEBPACK ------------
 WEBPACK_LOADER = {
     "DEFAULT": {

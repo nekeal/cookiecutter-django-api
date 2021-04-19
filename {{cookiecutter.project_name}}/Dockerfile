@@ -14,7 +14,7 @@ RUN --mount=type=cache,target=/tmp/.yarn yarn install
 COPY {{ cookiecutter.project_name }}/frontend .
 CMD yarn start
 
-FROM FROM frontend-dev as frontend-builder
+FROM frontend-dev as frontend-builder
 WORKDIR /app
 COPY --from=frontend-dev /app ./
 RUN yarn build

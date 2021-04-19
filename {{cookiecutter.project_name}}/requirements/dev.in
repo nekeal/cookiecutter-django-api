@@ -9,4 +9,3 @@ black
 isort
 mypy
 django-stubs
-ansible

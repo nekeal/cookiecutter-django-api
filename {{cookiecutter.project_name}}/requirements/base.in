@@ -12,6 +12,9 @@ djangorestframework-simplejwt
 {%- if cookiecutter.use_drf_flex_fields == "y" %}
 drf-flex-fields
 {%- endif %}
+{%- if cookiecutter.use_drf_yasg == "y" %}
+drf-yasg
+{%- endif %}
 {%- if cookiecutter.use_django_filters == "y" %}
 django-filter
 {%- endif %}

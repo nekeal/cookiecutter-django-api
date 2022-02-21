@@ -12,6 +12,7 @@
     "use_jwt": "y",
     "use_sentry": "y",
     "use_django_filters": "y",
+    "use_django_debug_toolbar": "y",
     "use_django_extensions": "y",
     "use_tox": "y",
     "use_celery": "y",

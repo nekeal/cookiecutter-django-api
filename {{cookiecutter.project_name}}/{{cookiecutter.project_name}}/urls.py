@@ -40,4 +40,7 @@ urlpatterns = [
 {%- if cookiecutter.use_react_frontend == 'y' %}
     path("", TemplateView.as_view(template_name="index.html")),
 {%- endif %}
+{%- if cookiecutter.use_django_debug_toolbar == 'y' %}
+    path("__debug__/", include("debug_toolbar.urls")),
+{%- endif %}
 ]

@@ -169,3 +169,13 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 {%- endif %}
+{%- if cookiecutter.use_django_filters == "y" %}
+
+# ------------- REST FRAMEWORK ------------
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+}
+{%- endif %}

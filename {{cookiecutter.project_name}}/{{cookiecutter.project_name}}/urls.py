@@ -34,8 +34,14 @@ urlpatterns = [
     path("api/", include(router.urls)),
 {%- endif %}
 {%- if cookiecutter.use_drf_yasg == "y" %}
-    path('api/doc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger'),
+    path(
+        "api/doc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
+    ),
+    path(
+        "api/swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger",
+    ),
 {%- endif %}
 {%- if cookiecutter.use_react_frontend == 'y' %}
     path("", TemplateView.as_view(template_name="index.html")),

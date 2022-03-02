@@ -24,6 +24,9 @@ django-jazzmin
 {%- if cookiecutter.use_django_extensions == 'y' %}
 django-extensions
 {%- endif %}
+{%- if cookiecutter.use_django_debug_toolbar == 'y' %}
+django-debug-toolbar
+{%- endif %}
 {%- if cookiecutter.use_react_frontend == 'y' %}
 django-webpack-loader
 {%- endif %}

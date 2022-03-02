@@ -38,11 +38,14 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_drf_flex_fields == "y" %}
     "rest_flex_fields",
 {%- endif %}
-{% if cookiecutter.use_drf_yasg == "y" -%}
+{%- if cookiecutter.use_drf_yasg == "y" %}
     "drf_yasg",
 {%- endif %}
 {%- if cookiecutter.use_django_filters == "y" %}
     "django_filters",
+{%- endif %}
+{%- if cookiecutter.use_django_debug_toolbar == "y" %}
+    "debug_toolbar",
 {%- endif %}
 {%- if cookiecutter.use_jwt == "y" %}
     "djoser",
@@ -67,6 +70,9 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    {%- endif %}
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -153,5 +159,23 @@ WEBPACK_LOADER = {
         "BUNDLE_DIR_NAME": f"{PROJECT_NAME}/frontend/build/",
         "STATS_FILE": BASE_DIR.joinpath(PROJECT_NAME, "frontend", "webpack-stats.json"),
     }
+}
+{%- endif %}
+{%- if cookiecutter.use_django_debug_toolbar == 'y' %}
+
+# ------------- DEBUG TOOLBAR ------------
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+{%- endif %}
+{%- if cookiecutter.use_django_filters == "y" %}
+
+# ------------- REST FRAMEWORK ------------
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
 }
 {%- endif %}

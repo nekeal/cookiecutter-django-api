@@ -5,5 +5,6 @@ app_name = "accounts"
 urlpatterns = [
 {%- if cookiecutter.use_jwt == "y" %}
     path(r"", include("djoser.urls")),
-{%- endif %}
+    path(r"", include("djoser.urls.jwt")),
+    {%- endif %}
 ]

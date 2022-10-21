@@ -66,6 +66,8 @@ LOCAL_APPS = ["{{ cookiecutter.project_name }}.accounts.apps.AccountsConfig"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
 # ------------- MIDDLEWARES -------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

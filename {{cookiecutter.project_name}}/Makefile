@@ -81,8 +81,8 @@ rebuild-db:  ## recreates database with fixtures
 	python manage.py loaddata fixtures/*
 
 bootstrap-docker:  ## bootstrap project in docker
-	docker-compose up -d
-	docker-compose exec web pip install -r requirements/dev.txt
+	docker-compose up --build -d
+	docker-compose exec web python manage.py migrate
 	docker-compose exec web python manage.py loaddata fixtures/*
 
 show-docker-tags: ## shows docker tags for building and pushing image

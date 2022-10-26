@@ -25,7 +25,7 @@ COPY --from=frontend-builder /app/build ./build
 COPY --from=frontend-builder /app/webpack-stats.json ./
 {%- endif %}
 
-FROM python:3.8.7-slim as backend-base
+FROM python:3.10.8-slim as backend-base
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

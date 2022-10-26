@@ -4,8 +4,8 @@ This template will help you create Django API with most tools you need to create
 quality web app.
 
 ## Highlights
-- Django 3.0+
-- Python 3.8+
+- Django 4.0+
+- Python 3.10+
 - Pip Tool for dependency management
 - Testing with pytest
 - Isolated tests with tox

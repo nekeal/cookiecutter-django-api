@@ -1,11 +1,13 @@
 [tool.black]
-max-line-length = 88
+max-line-length = 120
 
 [tool.isort]
 profile = "black"
 
-[tool.coverage.report]
+[tool.coverage.run]
 branch = true
+
+[tool.coverage.report]
 exclude_lines = [
     "pragma: no cover",
     "if TYPE_CHECKING:"
@@ -19,14 +21,16 @@ omit = [
 ]
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "{{ cookiecutter.project_name }}.settings.local"
+DJANGO_SETTINGS_MODULE = "{{ cookiecutter.project_name }}.settings.tests"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 norecursedirs = ["deployment*",
                  ".git/*",
                  ".mypy_cache/*",
                  ".pytest_cache/*",
                  "migrations/*",
+                 {%- if cookiecutter.use_react_frontend == 'y' %}
                  "{{ cookiecutter.project_name }}/frontend/*"
+                 {%- endif %}
 ]
 addopts = "--nomigrations"
 
@@ -34,7 +38,7 @@ addopts = "--nomigrations"
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py38, py39, flake8, black, isort, mypy
+envlist = py310, flake8, black, isort, mypy
 skipsdist = True
 
 [gh-actions]
@@ -44,7 +48,7 @@ python =
 [testenv:flake8]
 basepython = python
 deps = flake8
-commands = flake8 --format=default {{ cookiecutter.project_name }}
+commands = flake8 {{ cookiecutter.project_name }}
 
 [testenv:black]
 deps = black

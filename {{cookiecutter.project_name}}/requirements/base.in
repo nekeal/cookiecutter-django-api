@@ -37,3 +37,4 @@ celery
 psycopg2-binary
 ipython
 environs
+pyyaml

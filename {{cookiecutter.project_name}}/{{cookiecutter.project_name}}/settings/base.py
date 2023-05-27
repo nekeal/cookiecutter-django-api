@@ -1,6 +1,14 @@
 from pathlib import Path
 
 from environs import Env
+# noinspection PyUnresolvedReferences
+# flake8: noqa
+{%- if cookiecutter.use_jazzmin == "y" %}
+from .conf.theme import *
+{%- endif %}
+{%- if cookiecutter.use_celery == "y" %}
+from .conf.celery_settings import *
+{%- endif %}
 
 env = Env()
 

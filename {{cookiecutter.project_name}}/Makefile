@@ -76,11 +76,13 @@ pip-compile: _install_pip_tools
 install_requirements: _install_pip_tools  ## install python requirements
 	pip install -r requirements/dev.txt
 
+{%- if cookiecutter.use_pre_commit == 'y' %}
 install_pre_commit:  ## install pre-commit hooks
 	pre-commit install --install-hooks
 	pre-commit install -t commit-msg
+{%- endif %}
 
-bootstrap: install_requirements install_pre_commit  ## bootstrap project
+bootstrap: install_requirements {%- if cookiecutter.use_pre_commit == 'y' %}install_pre_commit{%- endif %}  ## bootstrap project
 	python manage.py migrate
 	[ -d fixtures ] && python manage.py loaddata fixtures/*.yaml || exit 0
 

@@ -7,7 +7,7 @@ from django.conf import settings
 from django.utils import timezone
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "recevent_printing_manager.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_name }}.settings.local")
 
 logger = logging.getLogger(__name__)
 
@@ -22,10 +22,6 @@ class Celery(BaseCelery):
 
 
 app = Celery("{{cookiecutter.project_name}}")
-# Using a string here means the worker doesn't have to serialize
-# the configuration object to child processes.
-# - namespace='CELERY' means all celery-related configuration keys
-#   should have a `CELERY_` prefix but remember to use only the new settings names
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
 # Load task modules from all registered Django app configs.

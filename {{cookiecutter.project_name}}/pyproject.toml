@@ -28,6 +28,7 @@ norecursedirs = ["deployment*",
                  ".mypy_cache/*",
                  ".pytest_cache/*",
                  "migrations/*",
+                 "settings/*",
                  {%- if cookiecutter.use_react_frontend == 'y' %}
                  "{{ cookiecutter.project_name }}/frontend/*"
                  {%- endif %}

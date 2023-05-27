@@ -1,3 +1,4 @@
+{%- if cookiecutter.use_pre_commit %}
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -65,3 +66,4 @@ repos:
     -   id: django-upgrade
         language_version: python3.10
         args: ["--target-version", "4.2"]
+{%- endif %}

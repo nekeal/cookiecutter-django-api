@@ -7,7 +7,9 @@ pytest-cov
 pytest-django
 pytest-sugar
 pytest-xdist
+{%- if cookiecutter.use_pre_commit == 'y' %}
 pre-commit
+{%- endif %}
 factory-boy
 flake8
 flake8-comprehensions
@@ -20,10 +22,6 @@ black
 isort
 mypy
 django-stubs
-types-tqdm
-ipdb
+{%- if cookiecutter.use_tox == 'y' %}
 tox
-types-requests
-mock
-diagrams
-types-xmltodict
+{%- endif %}

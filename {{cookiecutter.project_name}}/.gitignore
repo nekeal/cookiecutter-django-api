@@ -11,6 +11,12 @@ db.sqlite3
 /media
 local_settings.py
 
+{%- if cookiecutter.use_react_frontend == 'y' %}
+# React #
+frontend/build
+frontend/config
+{%- endif %}
+
 # Backup files #
 *.bak
 

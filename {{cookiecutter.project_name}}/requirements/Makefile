@@ -9,7 +9,7 @@ all: $(outputs)
 	pip-compile -v --output-file $@ $<
 
 prod.txt: base.txt
-local.txt: base.txt
+dev.txt: base.txt
 
 check:
 	@which pip-compile > /dev/null

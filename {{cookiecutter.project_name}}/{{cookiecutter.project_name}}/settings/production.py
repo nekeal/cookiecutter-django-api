@@ -16,6 +16,8 @@ sentry_sdk.init(
 )
 {%- endif %}
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
 # ------------- LOGGING -------------
 LOGGING = {
     "version": 1,

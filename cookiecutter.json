@@ -17,6 +17,6 @@
     "use_tox": "y",
     "use_celery": "y",
     "use_dbbackup": "y",
-    "use_react_frontend": "y"
-
+    "use_react_frontend": "y",
+    "use_pre_commit": "y"
 }

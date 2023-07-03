@@ -67,13 +67,24 @@ autoformatters: ## runs auto formatters
 	black {{ cookiecutter.project_name }}
 	isort {{ cookiecutter.project_name }}
 
-pip-compile:
+_install_pip_tools:
+	python -m piptools > /dev/null 2>&1 || pip install pip-tools
+
+pip-compile: _install_pip_tools
 	ls requirements/*.in | xargs -n 1 pip-compile
 
-bootstrap: ## bootstrap project
+install_requirements: _install_pip_tools  ## install python requirements
 	pip install -r requirements/dev.txt
+
+{%- if cookiecutter.use_pre_commit == 'y' %}
+install_pre_commit:  ## install pre-commit hooks
+	pre-commit install --install-hooks
+	pre-commit install -t commit-msg
+{%- endif %}
+
+bootstrap: install_requirements {%- if cookiecutter.use_pre_commit == 'y' %}install_pre_commit{%- endif %}  ## bootstrap project
 	python manage.py migrate
-	python manage.py loaddata fixtures/*
+	[ -d fixtures ] && python manage.py loaddata fixtures/*.yaml || exit 0
 
 rebuild-db:  ## recreates database with fixtures
 	echo yes | python manage.py reset_db
@@ -83,7 +94,7 @@ rebuild-db:  ## recreates database with fixtures
 bootstrap-docker:  ## bootstrap project in docker
 	docker-compose up --build -d
 	docker-compose exec web python manage.py migrate
-	docker-compose exec web python manage.py loaddata fixtures/*
+	docker-compose exec web python manage.py loaddata fixtures/*.yaml
 
 show-docker-tags: ## shows docker tags for building and pushing image
 	echo $(TAGS)

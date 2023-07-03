@@ -12,7 +12,7 @@ services:
       - .:/app
     environment:
       POSTGRES_HOST: postgres
-    command: python manage.py runserver 0:8000"
+    command: "python manage.py runserver 0:8000"
     depends_on:
       - postgres
 

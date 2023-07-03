@@ -1,6 +1,14 @@
 from pathlib import Path
 
 from environs import Env
+# noinspection PyUnresolvedReferences
+# flake8: noqa
+{%- if cookiecutter.use_jazzmin == "y" %}
+from .conf.theme import *
+{%- endif %}
+{%- if cookiecutter.use_celery == "y" %}
+from .conf.celery_settings import *
+{%- endif %}
 
 env = Env()
 
@@ -62,7 +70,9 @@ THIRD_PARTY_APPS = [
 {%- endif %}
 ]
 
-LOCAL_APPS = ["{{ cookiecutter.project_name }}.accounts.apps.AccountsConfig"]
+LOCAL_APPS = [
+    "{{ cookiecutter.project_name }}.accounts.apps.AccountsConfig",
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -80,6 +90,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 # ------------- URLS -------------
@@ -103,10 +114,12 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = (BASE_DIR.joinpath("commons"),)
+
 # ------------- PASSWORDS -------------
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-PASSOWRD_HASHERS = [
+PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
     "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -130,15 +143,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # ------------- INTERNALIZATION -------------
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
+
+LANGUAGES = (
+    ("pl", "Polish"),
+    ("en", "English"),
+)
 
 TIME_ZONE = "Europe/Warsaw"
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
+
+LOCALE_PATHS = (BASE_DIR.joinpath("locale"),)
 
 # ------------- STATIC -------------
 STATIC_URL = "/static/"
@@ -171,13 +189,17 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 {%- endif %}
-{%- if cookiecutter.use_django_filters == "y" %}
+{%- if cookiecutter.use_drf == "y" %}
 
 # ------------- REST FRAMEWORK ------------
 REST_FRAMEWORK = {
+    {%- if cookiecutter.use_jwt == "y" %}
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    {%- endif %}
+    {%- if cookiecutter.use_django_filters == "y" %}
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    {%- endif %}
 }
 {%- endif %}

@@ -156,7 +156,7 @@ USE_TZ = True
 LOCALE_PATHS = (BASE_DIR.joinpath("locale"),)
 
 # ------------- STATIC -------------
-STATIC_URL = "/static/"
+STATIC_URL = env.str("DJANGO_STATIC_URL", default="/static/")
 STATIC_ROOT = BASE_DIR.joinpath("public")
 {%- if cookiecutter.use_react_frontend == 'y' %}
 STATICFILES_DIRS = [

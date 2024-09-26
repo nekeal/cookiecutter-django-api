@@ -43,9 +43,6 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_drf == "y" %}
     "rest_framework",
 {%- endif %}
-{%- if cookiecutter.use_drf_flex_fields == "y" %}
-    "rest_flex_fields",
-{%- endif %}
 {%- if cookiecutter.use_drf_yasg == "y" %}
     "drf_yasg",
 {%- endif %}

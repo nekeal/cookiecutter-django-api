@@ -49,4 +49,5 @@ urlpatterns = [
 {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
     path("__debug__/", include("debug_toolbar.urls")),
 {%- endif %}
+    path("i18n/", include("django.conf.urls.i18n")),
 ]

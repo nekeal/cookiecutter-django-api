@@ -30,7 +30,6 @@ django-debug-toolbar
 {%- if cookiecutter.use_react_frontend == 'y' %}
 django-webpack-loader
 {%- endif %}
-django-admin-display
 {%- if cookiecutter.use_celery == 'y' %}
 celery
 {%- endif %}

@@ -48,9 +48,10 @@ clean-test: ## remove test and coverage artifacts
 test: ## run tests quickly with the default Python
 	pytest {{ cookiecutter.project_name }}
 
+{%- if cookiecutter.use_tox == 'y' %}
 test-all: ## run tests on every Python version with tox
 	tox
-
+{%- endif %}
 coverage: ## check code coverage quickly with the default Python
 	pytest --cov={{ cookiecutter.project_name }} {{ cookiecutter.project_name }}
 	coverage report -m
@@ -58,14 +59,12 @@ coverage: ## check code coverage quickly with the default Python
 	$(BROWSER) htmlcov/index.html
 
 quality-check: ## check quality of code
-	black --check {{ cookiecutter.project_name }}
-	isort --check {{ cookiecutter.project_name }}
-	flake8 {{ cookiecutter.project_name }}
-	mypy {{ cookiecutter.project_name }}
+	ruff format {{ cookiecutter.project_name }}
+	ruff check {{ cookiecutter.project_name }}
+	dmypy run {{ cookiecutter.project_name }}
 
 autoformatters: ## runs auto formatters
-	black {{ cookiecutter.project_name }}
-	isort {{ cookiecutter.project_name }}
+	ruff format {{ cookiecutter.project_name }}
 
 _install_pip_tools:
 	python -m piptools > /dev/null 2>&1 || pip install pip-tools
@@ -92,9 +91,9 @@ rebuild-db:  ## recreates database with fixtures
 	python manage.py loaddata fixtures/*
 
 bootstrap-docker:  ## bootstrap project in docker
-	docker-compose up --build -d
-	docker-compose exec web python manage.py migrate
-	docker-compose exec web python manage.py loaddata fixtures/*.yaml
+	docker compose up --build -d
+	docker compose exec web python manage.py migrate
+	docker compose exec web python manage.py loaddata fixtures/*.yaml
 
 show-docker-tags: ## shows docker tags for building and pushing image
 	echo $(TAGS)

@@ -1,22 +1,66 @@
 {
-    "project_name": "django_app",
-    "full_project_name": "Sample Django app",
-    "github_username": "The owner of the repository. Either your github username or organization name.",
-    "github_repository_name": "{{ cookiecutter.project_name }}",
-    "email": "mail@example.com",
-    "description": "", 
-    "use_jazzmin": "y",
-    "use_drf": "y",
-    "use_drf_flex_fields": "y",
-    "use_drf_yasg": "y",
-    "use_jwt": "y",
-    "use_sentry": "y",
-    "use_django_filters": "y",
-    "use_django_debug_toolbar": "y",
-    "use_django_extensions": "y",
-    "use_tox": "y",
-    "use_celery": "y",
-    "use_dbbackup": "y",
-    "use_react_frontend": "y",
-    "use_pre_commit": "y"
+  "project_name": "django_app",
+  "full_project_name": "Sample Django app",
+  "python_version": [
+    "3.12+",
+    "3.8+",
+    "3.9+",
+    "3.10+",
+    "3.11+"
+  ],
+  "_python_version_specs": {
+    "3.8+": {
+      "versions": [
+        "3.8",
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12"
+      ]
+    },
+    "3.9+": {
+      "versions": [
+        "3.9",
+        "3.10",
+        "3.11",
+        "3.12"
+      ]
+    },
+    "3.10+": {
+      "versions": [
+        "3.10",
+        "3.11",
+        "3.12"
+      ]
+    },
+    "3.11+": {
+      "versions": [
+        "3.11",
+        "3.12"
+      ]
+    },
+    "3.12+": {
+      "versions": [
+        "3.12"
+      ]
+    }
+  },
+  "github_username": "The owner of the repository. Either your github username or organization name.",
+  "github_repository_name": "{{ cookiecutter.project_name }}",
+  "email": "mail@example.com",
+  "description": "",
+  "use_jazzmin": "y",
+  "use_drf": "y",
+  "use_drf_flex_fields": "y",
+  "use_drf_yasg": "y",
+  "use_jwt": "y",
+  "use_sentry": "y",
+  "use_django_filters": "y",
+  "use_django_debug_toolbar": "y",
+  "use_django_extensions": "y",
+  "use_tox": "y",
+  "use_celery": "y",
+  "use_dbbackup": "y",
+  "use_react_frontend": "y",
+  "use_pre_commit": "y"
 }

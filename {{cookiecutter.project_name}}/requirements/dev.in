@@ -11,15 +11,7 @@ pytest-xdist
 pre-commit
 {%- endif %}
 factory-boy
-flake8
-flake8-comprehensions
-flake8-debugger
-flake8-django
-flake8-bugbear
-flake8-logging-format
-flake8-use-pathlib
-black
-isort
+ruff
 mypy
 django-stubs
 {%- if cookiecutter.use_tox == 'y' %}

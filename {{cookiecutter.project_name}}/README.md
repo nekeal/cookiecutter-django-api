@@ -37,13 +37,13 @@ make bootstrap
 
 Start the dev server for local development:
 ```bash
-docker-compose up
+docker compose up
 ```
 
 Run a command inside the docker container:
 
 ```bash
-docker-compose run --rm web [command]
+docker compose run --rm web [command]
 ```
 
 
@@ -53,7 +53,4 @@ To install pre-commit hooks run:
 
 ```bash
 pre-commit install
-pre-commit install -t commit-msg
 ```
-
-Currently, pre_ticket hook works only when commit message is passed as a `-m` parameter to a git commit command.

@@ -7,37 +7,21 @@ repos:
       - id: trailing-whitespace
         files: ".+\\.py$"
       - id: end-of-file-fixer
-  - repo: https://github.com/deployed/pre_ticket
-    rev: 1.0.1
-    hooks:
-      - id: pre_ticket
-        language_version: python3.10
-        stages: [commit-msg]
-        args: ['--regex=(?P<ticket>[0-9]+)_.*']
-  - repo: https://github.com/pycqa/flake8
-    rev: 3.9.2
-    hooks:
-      - id: flake8
-        additional_dependencies: [
-          'flake8-comprehensions==3.10.1',
-          'flake8-debugger==4.1.2',
-          'flake8-django==1.1.5',
-          'flake8-bugbear==22.10.27',
-          'flake8-logging-format==0.8.1',
-          'flake8-use-pathlib==0.3.0',
-        ]
-        entry: flake8 --config .flake8
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.11.5
-    hooks:
-      - id: isort
-  - repo: https://github.com/ambv/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-        language_version: python3.10
   - repo: local
     hooks:
+      - id: ruff-format
+        name: ruff-format
+        entry: ruff format
+        require_serial: true
+        language: system
+        types: [ python ]
+      - id: ruff
+        name: ruff
+        # Remove --fix, in case you want it to disable autofix when this hook runs
+        entry: poetry run ruff check --fix --force-exclude
+        require_serial: true
+        language: system
+        types: [ python ]
       - id: migrations-check
         language: system
         name: Check for uncreated migrations
@@ -46,8 +30,6 @@ repos:
         pass_filenames: false
         stages: [ commit ]
         require_serial: true
-  - repo: local
-    hooks:
       - id: mypy-check
         language: system
         name: Check for mypy
@@ -55,15 +37,10 @@ repos:
         stages: [ commit ]
         files: ".+\\.py$"
         require_serial: true
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.2.0
-    hooks:
-      - id: pyupgrade
-        args: ["--py310-plus"]
   - repo: https://github.com/adamchainz/django-upgrade
     rev: 1.11.0
     hooks:
     -   id: django-upgrade
-        language_version: python3.10
-        args: ["--target-version", "4.2"]
+        language_version: python{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}
+        args: ["--target-version", "5.1"]
 {%- endif %}

@@ -1,0 +1,51 @@
+# This compose file is intended to be for production
+x-common-backend: &common-backend
+  image: ${COMPOSE_DOCKER_IMAGE}
+  user: 1000:1000
+  networks:
+    - traefik
+    - bridge
+  env_file: .env
+
+services:
+  backend:
+    <<: *common-backend
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.{{ cookiecutter.project_name }}.entrypoints=websecure"
+      - "traefik.http.routers.{{ cookiecutter.project_name }}.rule=Host(`${COMPOSE_DOMAIN_NAME}`)"
+      - "traefik.http.services.{{ cookiecutter.project_name }}.loadbalancer.server.port=8010"
+      - "traefik.http.routers.{{ cookiecutter.project_name }}.tls=true"
+    command: "gunicorn {{ cookiecutter.project_name }}.wsgi -w 4 -b 0.0.0.0:8010"
+    depends_on:
+      - migrations
+  migrations:
+    <<: *common-backend
+    restart: "no"
+
+    command: "python manage.py migrate"
+  collectstatic:
+    <<: *common-backend
+    restart: "no"
+    command: "python manage.py collectstatic --no-input"
+    volumes:
+      - source: traefik_shared_static_files
+        target: /app/public
+        type: volume
+        volume:
+          subpath: "{{ cookiecutter.project_name }}"
+    depends_on:
+      - backend
+
+volumes:
+  static_files:
+  traefik_shared_static_files:
+    external: true
+
+
+networks:
+  traefik:
+    external: true
+  bridge:

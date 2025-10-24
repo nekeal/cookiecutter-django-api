@@ -6,13 +6,13 @@ outputs := $(objects:.in=.txt)
 all: $(outputs)
 
 %.txt: %.in
-	pip-compile -v --output-file $@ $<
+	uv pip compile -v --output-file $@ $<
 
 prod.txt: base.txt
 dev.txt: base.txt
 
 check:
-	@which pip-compile > /dev/null
+	@which uv > /dev/null
 
 clean: check
 	- rm *.txt

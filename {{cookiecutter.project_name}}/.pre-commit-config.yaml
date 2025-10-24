@@ -11,21 +11,21 @@ repos:
     hooks:
       - id: ruff-format
         name: ruff-format
-        entry: ruff format
+        entry: uv run ruff format
         require_serial: true
         language: system
         types: [ python ]
       - id: ruff
         name: ruff
         # Remove --fix, in case you want it to disable autofix when this hook runs
-        entry: poetry run ruff check --fix --force-exclude
+        entry: uv run ruff check --fix --force-exclude
         require_serial: true
         language: system
         types: [ python ]
       - id: migrations-check
         language: system
         name: Check for uncreated migrations
-        entry: python manage.py makemigrations --check --dry-run
+        entry: uv run python manage.py makemigrations --check --dry-run
         files: "(models\\.py$|(migrations/.+\\.py))"
         pass_filenames: false
         stages: [ commit ]
@@ -33,12 +33,13 @@ repos:
       - id: mypy-check
         language: system
         name: Check for mypy
-        entry: bash -c 'mypy {{ cookiecutter.project_name }}'
+        entry: uv run mypy {{ cookiecutter.project_name }}
         stages: [ commit ]
+        pass_filenames: false
         files: ".+\\.py$"
         require_serial: true
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.11.0
+    rev: 1.22.2
     hooks:
     -   id: django-upgrade
         language_version: python{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}

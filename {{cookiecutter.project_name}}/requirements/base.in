@@ -5,10 +5,6 @@ django-dbbackup
 {%- if cookiecutter.use_drf == "y" %}
 djangorestframework
 {%- endif %}
-{%- if cookiecutter.use_jwt == "y" %}
-djoser
-djangorestframework-simplejwt
-{%- endif %}
 {%- if cookiecutter.use_drf_yasg == "y" %}
 drf-yasg
 {%- endif %}

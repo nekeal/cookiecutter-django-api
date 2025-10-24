@@ -52,7 +52,6 @@
   "use_jazzmin": "y",
   "use_drf": "y",
   "use_drf_yasg": "y",
-  "use_jwt": "y",
   "use_sentry": "y",
   "use_django_filters": "y",
   "use_django_debug_toolbar": "y",

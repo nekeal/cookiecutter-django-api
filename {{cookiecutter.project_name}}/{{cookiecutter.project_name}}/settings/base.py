@@ -52,10 +52,6 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_debug_toolbar == "y" %}
     "debug_toolbar",
 {%- endif %}
-{%- if cookiecutter.use_jwt == "y" %}
-    "djoser",
-    "rest_framework_simplejwt",
-{%- endif %}
 {%- if cookiecutter.use_django_extensions == 'y' %}
     "django_extensions",
 {%- endif %}
@@ -190,11 +186,6 @@ INTERNAL_IPS = [
 
 # ------------- REST FRAMEWORK ------------
 REST_FRAMEWORK = {
-    {%- if cookiecutter.use_jwt == "y" %}
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    {%- endif %}
     {%- if cookiecutter.use_django_filters == "y" %}
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     {%- endif %}

@@ -66,7 +66,6 @@ def test_newly_generated_project_can_resolve_and_install_requirements(cookie_gen
     )
     assert set(project_dir.glob("requirements/*.txt")) == {
         project_dir / "requirements/base.txt",
-        project_dir / "requirements/deployment.txt",
         project_dir / "requirements/dev.txt",
         project_dir / "requirements/prod.txt",
     }

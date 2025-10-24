@@ -8,3 +8,6 @@ dependencies = ["cookiecutter>=2.6.0", "pytest"]
 
 [dependency-groups]
 dev = ["ruff>=0.14.2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

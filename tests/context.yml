@@ -1,6 +1,6 @@
 project_name: django_app
 full_project_name: Sample Django app
-python_version: 3.12+
+python_version: 3.13+
 repository_url: gitlab.deployed.pl
 repository_path: ""
 email: support@deployed.pl

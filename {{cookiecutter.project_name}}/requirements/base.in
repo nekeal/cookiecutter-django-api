@@ -9,9 +9,6 @@ djangorestframework
 djoser
 djangorestframework-simplejwt
 {%- endif %}
-{%- if cookiecutter.use_drf_flex_fields == "y" %}
-drf-flex-fields
-{%- endif %}
 {%- if cookiecutter.use_drf_yasg == "y" %}
 drf-yasg
 {%- endif %}

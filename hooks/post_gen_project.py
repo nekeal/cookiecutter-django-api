@@ -2,22 +2,23 @@ import os
 
 
 def remove_drf_files():
-    os.remove(os.path.join("{{cookiecutter.project_name}}", "accounts", "serializers.py"))
+    os.remove(
+        os.path.join("{{cookiecutter.project_name}}", "accounts", "serializers.py")
+    )
 
 
 def remove_celery_files():
     os.remove(os.path.join("{{cookiecutter.project_name}}", "celery.py"))
 
 
-def remove_react_frontend_files():
-    os.remove(os.path.join("{{cookiecutter.project_name}}", "templates", "index.html"))
-
-
 def remove_pre_commit_files():
     os.remove(os.path.join(".pre-commit-config.yaml"))
 
+
 def remove_jazzmin_files():
-    os.remove(os.path.join("{{cookiecutter.project_name}}", "settings", "conf", "theme.py"))
+    os.remove(
+        os.path.join("{{cookiecutter.project_name}}", "settings", "conf", "theme.py")
+    )
 
 
 def main():
@@ -26,9 +27,6 @@ def main():
 
     if "{{ cookiecutter.use_celery }}".lower() == "n":
         remove_celery_files()
-
-    if "{{ cookiecutter.use_react_frontend }}".lower() == "n":
-        remove_react_frontend_files()
 
     if "{{ cookiecutter.use_pre_commit }}".lower() == "n":
         remove_pre_commit_files()

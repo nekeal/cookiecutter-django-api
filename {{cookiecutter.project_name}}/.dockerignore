@@ -7,9 +7,5 @@ deployment*
 htmlcov
 .pytest_cache
 media
-{%- if cookiecutter.use_react_frontend == 'y' %}
 **/node_modules
-**/frontend/build
-**/frontend/config
-{%- endif %}
 logs

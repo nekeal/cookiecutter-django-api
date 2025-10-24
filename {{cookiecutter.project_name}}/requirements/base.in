@@ -20,9 +20,6 @@ django-extensions
 {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
 django-debug-toolbar
 {%- endif %}
-{%- if cookiecutter.use_react_frontend == 'y' %}
-django-webpack-loader
-{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
 celery
 {%- endif %}

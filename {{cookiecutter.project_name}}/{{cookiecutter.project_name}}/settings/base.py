@@ -58,9 +58,6 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_celery == 'y' %}
     "celery",
 {%- endif %}
-{%- if cookiecutter.use_react_frontend == 'y' %}
-    "webpack_loader",
-{%- endif %}
 ]
 
 LOCAL_APPS = [
@@ -154,26 +151,11 @@ LOCALE_PATHS = (BASE_DIR.joinpath("locale"),)
 # ------------- STATIC -------------
 STATIC_URL = env.str("DJANGO_STATIC_URL", default="/static/")
 STATIC_ROOT = BASE_DIR.joinpath("public")
-{%- if cookiecutter.use_react_frontend == 'y' %}
-STATICFILES_DIRS = [
-    BASE_DIR.joinpath(PROJECT_NAME, "frontend", "build", "static"),
-]
-{%- endif %}
 
 # ------------- MEDIA -------------
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.joinpath("media")
 
-{%- if cookiecutter.use_react_frontend == 'y' %}
-
-# ------------- WEBPACK ------------
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "BUNDLE_DIR_NAME": f"{PROJECT_NAME}/frontend/build/",
-        "STATS_FILE": BASE_DIR.joinpath(PROJECT_NAME, "frontend", "webpack-stats.json"),
-    }
-}
-{%- endif %}
 {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
 
 # ------------- DEBUG TOOLBAR ------------

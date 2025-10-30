@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from environs import Env
+from . import env
+
 # noinspection PyUnresolvedReferences
 # flake8: noqa
 {%- if cookiecutter.use_jazzmin == "y" %}
@@ -9,8 +10,6 @@ from .conf.theme import *
 {%- if cookiecutter.use_celery == "y" %}
 from .conf.celery_settings import *
 {%- endif %}
-
-env = Env()
 
 PROJECT_NAME = "{{ cookiecutter.project_name }}"
 

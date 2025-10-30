@@ -7,8 +7,8 @@
 # Prerequisites
 
 ## Native way with virtualenv
-- [Python3.10](https://www.python.org/downloads/)
-- [Virtualenv](https://virtualenv.pypa.io/en/latest/)
+- [Python3.13](https://www.python.org/downloads/)
+- [uv](https://github.com/astral-sh/uv)
 
 ## Docker way
 - [Docker](https://docs.docker.com/engine/install/)  
@@ -27,9 +27,7 @@ create database {{ cookiecutter.project_name }} owner {{ cookiecutter.project_na
 ```
 Now you can setup virtualenv and django:
 ```bash
-virtualenv venv
-source venv/bin/activate
-pip install pip-tools
+pip install uv
 make bootstrap
 ```
 

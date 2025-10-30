@@ -1,39 +1,94 @@
+[project]
+name = "{{ cookiecutter.project_name }}"
+version = "0.1.0"
+description = "{{ cookiecutter.description }}"
+requires-python = ">={{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}, <4.0"
+
+dependencies = [
+    "Django",
+    {%- if cookiecutter.use_dbbackup == "y" %}
+    "django-dbbackup",
+    {%- endif %}
+    {%- if cookiecutter.use_drf == "y" %}
+    "djangorestframework",
+    {%- endif %}
+    {%- if cookiecutter.use_drf_yasg == "y" %}
+    "drf-yasg",
+    {%- endif %}
+    {%- if cookiecutter.use_django_filters == "y" %}
+    "django-filter",
+    {%- endif %}
+    {%- if cookiecutter.use_jazzmin == "y" %}
+    "django-jazzmin",
+    {%- endif %}
+    {%- if cookiecutter.use_django_extensions == 'y' %}
+    "django-extensions",
+    {%- endif %}
+    {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
+    "django-debug-toolbar",
+    {%- endif %}
+    {%- if cookiecutter.use_celery == 'y' %}
+    "celery",
+    {%- endif %}
+    "psycopg2-binary",
+    "ipython",
+    "environs",
+    "pyyaml",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+    "pytest-xdist",
+    {%- if cookiecutter.use_pre_commit == 'y' %}
+    "pre-commit",
+    {%- endif %}
+    "factory-boy",
+    "ruff",
+    "mypy",
+    "django-stubs",
+]
+prod = ["gunicorn", "sentry-sdk"]
+
 [tool.ruff]
 target-version = "py{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0].replace('.', '') }}"
 line-length = 120
-exclude = [".git", "__pycache__", "build", "dist", ".venv", ".eggs", ".tox"]
+extend-exclude = ["__pycache__", "build"]
 [tool.ruff.lint]
-ignore = [
-    # flake8-builtins
-    # the likelihood of running into an issue when shadowing a buildin
-    # with a class attribute is very low
-    "A003",
-    # flake8-bugbear
-    # fastapi recommends to use `Depend()` as an argument default.
-    # Unfortunately, exceptions are hardcoded in bugbear.
-    # https://github.com/PyCQA/flake8-bugbear/issues/62
-    "B008",
-]
 select = [
     "A",   # flake8 builtins
+    "S",   # flake8-bandit
+    "DJ",  # flake8-django
+    "PT",  # flake8-pytest-style
+    "TID", # flake8-tidy-imports
+    "INT", # flake8-gettext
+    "PTH", # flake8-use-pathlib
+    "T10", # flake8-debugger
+    "ERA", # flake8-eradicate
+    "C4",  # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "G",   # flake8-logging-format
     "E",   # pycodestyle error
     "W",   # pycodestyle warning
     "F",   # pyflakes
     "N",   # pep8-naming
     "UP",  # pyupgrade
-    "B",   # flake8-bugbear
     "I",   # isort
-    "C4",  # flake8-comprehensions
-    "T10", # flake8-debugger
-    "ERA", # flake8-eradicate
-    "G",   # flake8-logging-format
     "C9",  # mccabe
+    "I",   # isort
 ]
+
 [tool.ruff.lint.per-file-ignores]
 "**/tests/**" = [
     "S101", # "Use of `assert` detected"
     "ARG",  # "Unused function argument". Fixtures are often unused.
     "S105", # "Possible hardcoded password".
+]
+"**settings/**" = [
+    "F405", # variable may be undefined due to * import
+    "F403", # allow * imports
 ]
 [tool.ruff.lint.mccabe]
 max-complexity = 10
@@ -115,12 +170,12 @@ commands = ruff format --check {{ cookiecutter.project_name }}
            ruff check {{ cookiecutter.project_name }}
 
 [testenv:mypy]
-deps = -r requirements/dev.txt
+deps = mypy, django-stubs
 commands = mypy {{ cookiecutter.project_name }}
 
 [testenv]
 setenv = PYTHONPATH = {toxinidir}
-deps = -r requirements/dev.txt
+deps = pytest, pytest-django, django
 commands = pytest {{ cookiecutter.project_name }}
 """
 {%- endif %}

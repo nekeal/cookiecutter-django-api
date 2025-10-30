@@ -7,7 +7,9 @@ from django.conf import settings
 from django.utils import timezone
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_name }}.settings.local")
+os.environ.setdefault(
+    "DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_name }}.settings.local"
+)
 
 logger = logging.getLogger(__name__)
 
@@ -39,5 +41,4 @@ def debug_task(self):
     # if you want to delay the task execution, use datetime.utcnow()
     debug_task.apply_async(eta=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
     """
-    print("Request: {0!r}".format(self.request))
-    logger.info("Request: {0!r}".format(self.request))
+    logger.info("Request: {0!r}", self.request)

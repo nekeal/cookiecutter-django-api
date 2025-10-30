@@ -1,6 +1,5 @@
 from django.utils.translation import gettext_lazy as _
 
-
 JAZZMIN_SETTINGS = {
     "language_chooser": True,
     "navigation_expanded": False,

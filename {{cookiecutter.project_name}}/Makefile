@@ -66,14 +66,11 @@ quality-check: ## check quality of code
 autoformatters: ## runs auto formatters
 	ruff format {{ cookiecutter.project_name }}
 
-_install_pip_tools:
-	python -m piptools > /dev/null 2>&1 || pip install pip-tools
+_install_uv:
+	python -m uv > /dev/null 2>&1 || pip install uv
 
-pip-compile: _install_pip_tools
-	ls requirements/*.in | xargs -n 1 pip-compile
-
-install_requirements: _install_pip_tools  ## install python requirements
-	pip install -r requirements/dev.txt
+install_requirements: _install_uv  ## install python requirements
+	uv sync
 
 {%- if cookiecutter.use_pre_commit == 'y' %}
 install_pre_commit:  ## install pre-commit hooks
@@ -81,7 +78,7 @@ install_pre_commit:  ## install pre-commit hooks
 	pre-commit install -t commit-msg
 {%- endif %}
 
-bootstrap: install_requirements {%- if cookiecutter.use_pre_commit == 'y' %}install_pre_commit{%- endif %}  ## bootstrap project
+bootstrap: install_requirements {%- if cookiecutter.use_pre_commit == 'y' %} install_pre_commit{%- endif %}  ## bootstrap project
 	python manage.py migrate
 	[ -d fixtures ] && python manage.py loaddata fixtures/*.yaml || exit 0
 

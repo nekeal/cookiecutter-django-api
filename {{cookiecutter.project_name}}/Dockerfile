@@ -5,15 +5,16 @@ ENV PYTHONDONTWRITEBYTECODE 1 \
     PYTHONUNBUFFERED 1
 WORKDIR /app
 
-ADD requirements/base.txt .
+# Install uv package manager
+RUN pip install --upgrade pip uv
 
 FROM backend-base as backend-dev
-ADD requirements/dev.txt .
-RUN --mount=type=cache,target=/root/.cache/pip pip install setuptools && pip install -r dev.txt
+COPY pyproject.toml uv.lock ./
+RUN --mount=type=cache,target=/root/.cache/ uv sync --group dev
 ADD . ./
 
 FROM backend-base as production
-ADD requirements/prod.txt .
-RUN --mount=type=cache,target=/root/.cache/pip pip install setuptools && pip install -r prod.txt
+COPY pyproject.toml uv.lock ./
+RUN --mount=type=cache,target=/root/.cache/uv uv sync --no-dev --group prod
 ADD . ./
 RUN python manage.py collectstatic --noinput

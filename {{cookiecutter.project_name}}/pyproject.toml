@@ -45,6 +45,9 @@ dev = [
     "ruff",
     "mypy",
     "django-stubs",
+    {%- if cookiecutter.use_celery == 'y' %}
+    "celery-types",
+    {%- endif %}
 ]
 prod = ["gunicorn", "sentry-sdk"]
 
@@ -139,6 +142,18 @@ ignore_missing_imports = true
 {%- if cookiecutter.use_drf == "y" %}
 [[tool.mypy.overrides]]
 module = "rest_framework.*"
+ignore_missing_imports = true
+{%- endif %}
+
+{%- if cookiecutter.use_drf_yasg == "y" %}
+[[tool.mypy.overrides]]
+module = "drf_yasg.*"
+ignore_missing_imports = true
+{%- endif %}
+
+{%- if cookiecutter.use_celery == "y" %}
+[[tool.mypy.overrides]]
+module = "celery.*"
 ignore_missing_imports = true
 {%- endif %}
 

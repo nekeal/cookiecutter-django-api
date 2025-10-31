@@ -2,14 +2,12 @@ import logging
 import os
 
 from celery import Celery as BaseCelery
-from celery.utils.time import timezone as celery_timezone
+from celery.utils.time import timezone as celery_timezone  # type: ignore[attr-defined]
 from django.conf import settings
 from django.utils import timezone
 
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault(
-    "DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_name }}.settings.local"
-)
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{ cookiecutter.project_name }}.settings.local")
 
 logger = logging.getLogger(__name__)
 

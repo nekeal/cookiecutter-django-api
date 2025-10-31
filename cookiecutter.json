@@ -2,6 +2,7 @@
   "project_name": "django_app",
   "full_project_name": "Sample Django app",
   "python_version": [
+    "3.14+",
     "3.13+",
     "3.12+",
     "3.8+",
@@ -78,5 +79,10 @@
   "use_django_debug_toolbar": "y",
   "use_tox": "y",
   "use_celery": "y",
-  "use_dbbackup": "y"
+  "use_dbbackup": "y",
+  "__prompts__": {
+    "description": "Project description shown in README.md",
+    "repository_path": "Repository path in format <user/project>",
+    "use_drf": "Use Django Rest Framework?"
+  }
 }

@@ -2,7 +2,7 @@ from . import env
 from .base import *
 
 DEBUG = False
-SECRET_KEY = "secret_key" # noqa: S105
+SECRET_KEY = "secret_key"  # noqa: S105
 
 # ------------- LOGGING -------------
 LOGGING = {}

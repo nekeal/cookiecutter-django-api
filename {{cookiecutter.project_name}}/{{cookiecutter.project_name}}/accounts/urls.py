@@ -1,7 +1,6 @@
-from django.urls import include, path
+from typing import Any
 
 app_name = "accounts"
 
-app_name = "accounts"
 
-urlpatterns = []
+urlpatterns: list[Any] = []

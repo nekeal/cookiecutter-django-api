@@ -45,4 +45,3 @@ jobs:
 {%- endraw %}
       - name: Run deployment check
         run: ansible-playbook -i inventory.txt {{ cookiecutter.project_name }}.yml -t docker_container -e "_docker_tag={{ '${{ github.sha }}' }}"
-

@@ -53,10 +53,7 @@ jobs:
           cd django_app
           git init .
           git add .
-          make -C requirements
-          uv venv
-          uv pip install -r requirements/dev.txt
-          source .venv/bin/activate
+          uv sync
 
       - name: Run pre-commit checks
         run: |

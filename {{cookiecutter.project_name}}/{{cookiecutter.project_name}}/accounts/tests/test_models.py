@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 
-from {{ cookiecutter.project_name }}.accounts.models import CustomUser
 from {{ cookiecutter.project_name }}.accounts.factories import UserFactory
+from {{ cookiecutter.project_name }}.accounts.models import CustomUser
 
 
 class TestCustomUser:

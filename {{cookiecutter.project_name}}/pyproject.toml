@@ -21,9 +21,7 @@ dependencies = [
     {%- if cookiecutter.use_jazzmin == "y" %}
     "django-jazzmin",
     {%- endif %}
-    {%- if cookiecutter.use_django_extensions == 'y' %}
     "django-extensions",
-    {%- endif %}
     {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
     "django-debug-toolbar",
     {%- endif %}

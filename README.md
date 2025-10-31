@@ -1,38 +1,58 @@
 # Cookiecutter Django API
 
-This template will help you create Django API with most tools you need to create 
-quality web app.
+[![CI](https://github.com/nekeal/cookiecutter-django-api/actions/workflows/test-template.yml/badge.svg)](https://github.com/nekeal/cookiecutter-django-api/actions/workflows/test-template.yml)
 
-## Highlights
-- Django 4.0+
-- Python 3.10+
-- Pip Tool for dependency management
-- Testing with pytest
-- Isolated tests with tox
-- Autoformatting with black & isort
-- Linting with flake8
-- Type checking with mypy
-- Support for frontend using webpack
-- Multistage Dockerfile with optional building frontend.
-- Local docker-compose
+A modern, production-ready cookiecutter template for creating Django APIs.
 
-## Quick Start
+This template provides a solid foundation for building robust and scalable Django applications with a focus on best practices and developer experience.
 
-Install [cookiecutter](https://github.com/audreyr/cookiecutter):
+## Features
 
-For debian base distribution
+-   **Modern Python:** Python 3.12+
+-   **Latest Django:** Django 5.2+
+-   **Dependency Management:** `uv` for fast and reliable dependency management.
+-   **Code Quality:**
+    -   `ruff` for linting and auto-formatting.
+    -   `mypy` for static type checking.
+-   **Testing:**
+    -   `pytest` for writing and running tests.
+    -   `tox` for testing against multiple Python versions.
+-   **Containerization:**
+    -   `Dockerfile` for building production-ready Docker images.
+    -   `docker-compose.yml` for local development.
+
+## Getting Started
+
+### Prerequisites
+
+-   [Python 3.12+](https://www.python.org/downloads/)
+-   [cookiecutter](https://cookiecutter.readthedocs.io/en/latest/installation.html)
+
+### Installation
+
+To create a new project, run:
+
 ```bash
-apt install cookiecutter
-```
-
-For MacOS
-```bash
-brew install cookiecutter
-```
-
-Create your project:
-```
 cookiecutter gh:nekeal/cookiecutter-django-api
 ```
 
-Example of the result: [django-template-project](https://github.com/nekeal/django-template-project)
+This will prompt you for some basic information about your project, and then generate a new Django project for you.
+
+## Usage
+
+After generating your project, you can start the local development server with:
+
+```bash
+make bootstrap
+make run
+```
+
+This will start the Django development server at `http://localhost:8000`.
+
+## Contributing
+
+Contributions are welcome!
+
+## License
+
+This project is licensed under the terms of the [MIT license](LICENSE).

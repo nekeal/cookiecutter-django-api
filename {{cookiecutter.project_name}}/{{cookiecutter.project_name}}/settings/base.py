@@ -51,9 +51,7 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_debug_toolbar == "y" %}
     "debug_toolbar",
 {%- endif %}
-{%- if cookiecutter.use_django_extensions == 'y' %}
     "django_extensions",
-{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
     "celery",
 {%- endif %}

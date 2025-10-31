@@ -144,11 +144,9 @@ module = "rest_framework.*"
 ignore_missing_imports = true
 {%- endif %}
 
-{%- if cookiecutter.use_django_extensions == "y" %}
 [[tool.mypy.overrides]]
 module = "django_extensions.*"
 ignore_missing_imports = true
-{%- endif %}
 
 {%- if cookiecutter.use_tox == 'y' %}
 [tool.tox]

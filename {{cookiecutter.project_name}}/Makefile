@@ -72,13 +72,11 @@ _install_uv:
 install_requirements: _install_uv  ## install python requirements
 	uv sync
 
-{%- if cookiecutter.use_pre_commit == 'y' %}
 install_pre_commit:  ## install pre-commit hooks
 	pre-commit install --install-hooks
 	pre-commit install -t commit-msg
-{%- endif %}
 
-bootstrap: install_requirements {%- if cookiecutter.use_pre_commit == 'y' %} install_pre_commit{%- endif %}  ## bootstrap project
+bootstrap: install_requirements install_pre_commit  ## bootstrap project
 	python manage.py migrate
 	[ -d fixtures ] && python manage.py loaddata fixtures/*.yaml || exit 0
 

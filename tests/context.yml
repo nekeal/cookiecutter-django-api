@@ -13,4 +13,3 @@ default_context:
   use_django_debug_toolbar: "y"
   use_celery: "y"
   use_dbbackup: "y"
-  use_pre_commit: "y"

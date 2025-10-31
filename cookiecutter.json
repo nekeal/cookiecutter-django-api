@@ -78,6 +78,5 @@
   "use_django_debug_toolbar": "y",
   "use_tox": "y",
   "use_celery": "y",
-  "use_dbbackup": "y",
-  "use_pre_commit": "y"
+  "use_dbbackup": "y"
 }

@@ -19,29 +19,12 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       {%- endraw %}
-      {%- if cookiecutter.use_react_frontend == "y" -%}
-      {%- raw %}
-      - name: Build & Publish Frontend Image
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          cache-from: type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ secrets.FRONT_DOCKER_REPOSITORY }}:${{ env.PREVIOUS_COMMIT_HASH }}
-          cache-to: type=inline
-          target: frontend-builder
-          tags: |
-            ${{ secrets.REGISTRY_URL }}/${{ secrets.FRONT_DOCKER_REPOSITORY }}:${{ env.BRANCH_NAME }}
-            ${{ secrets.REGISTRY_URL }}/${{ secrets.FRONT_DOCKER_REPOSITORY }}:${{ github.sha }}
-      {%- endraw %}
-      {%- endif %}
       - name: Build & Publish Backend Image
         uses: docker/build-push-action@v2
         with:
           push: true
           cache-from: |
               {% raw -%}type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ secrets.DOCKER_REPOSITORY }}:${{ env.BRANCH_NAME }}{%- endraw %}
-              {%- if cookiecutter.use_react_frontend == "y" %}
-              {% raw -%}type=registry,ref=${{ secrets.REGISTRY_URL }}/${{ secrets.FRONT_DOCKER_REPOSITORY }}:${{ env.PREVIOUS_COMMIT_HASH }}{%- endraw %}
-              {%- endif %}
           cache-to: type=inline
           {%- raw %}
           tags: |

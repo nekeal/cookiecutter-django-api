@@ -27,27 +27,26 @@ jobs:
         run: sudo apt-get install libpq-dev
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip setuptools
-          pip install -r requirements/dev.txt
+          python -m pip install --upgrade pip uv
+          uv sync
       - name: Run tests
-        run: pytest -n 2
+        run: uv run pytest -n 2
   quality:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
       matrix:
-        tox-env: [ruff, mypy]
+        hook: [ruff-format, ruff, mypy-check]
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python {{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}
         uses: actions/setup-python@v2
         with:
           python-version: "{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}"
+{%- raw %}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip setuptools
-          pip install tox
-{%- raw %}
-      - name: Test with tox
-        run: tox -e ${{ matrix.tox-env }}
+          python -m pip install --upgrade pip uv
+          uv sync
+      - name: Run pre-commit hook
+        run: uv run pre-commit run --all-files ${{ matrix.hook }}
 {%- endraw %}

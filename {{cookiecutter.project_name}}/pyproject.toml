@@ -1,47 +1,93 @@
+[project]
+name = "{{ cookiecutter.project_name }}"
+version = "0.1.0"
+description = "{{ cookiecutter.description }}"
+requires-python = ">={{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}, <4.0"
+
+dependencies = [
+    "Django",
+    {%- if cookiecutter.use_dbbackup == "y" %}
+    "django-dbbackup",
+    {%- endif %}
+    {%- if cookiecutter.use_drf == "y" %}
+    "djangorestframework",
+    {%- endif %}
+    {%- if cookiecutter.use_drf_yasg == "y" %}
+    "drf-yasg",
+    {%- endif %}
+    {%- if cookiecutter.use_django_filters == "y" %}
+    "django-filter",
+    {%- endif %}
+    {%- if cookiecutter.use_jazzmin == "y" %}
+    "django-jazzmin",
+    {%- endif %}
+    "django-extensions",
+    {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
+    "django-debug-toolbar",
+    {%- endif %}
+    {%- if cookiecutter.use_celery == 'y' %}
+    "celery",
+    {%- endif %}
+    "psycopg2-binary",
+    "ipython",
+    "environs",
+    "pyyaml",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "pytest-django",
+    "pytest-xdist",
+    "pre-commit",
+    "factory-boy",
+    "ruff",
+    "mypy",
+    "django-stubs",
+    {%- if cookiecutter.use_celery == 'y' %}
+    "celery-types",
+    {%- endif %}
+]
+prod = ["gunicorn", "sentry-sdk"]
+
 [tool.ruff]
 target-version = "py{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0].replace('.', '') }}"
 line-length = 120
-exclude = [
-    ".git",
-    "__pycache__",
-    "build",
-    "dist",
-    ".venv",
-    ".eggs",
-    ".tox",
-]
+extend-exclude = ["__pycache__", "build"]
 [tool.ruff.lint]
-ignore = [
-    # flake8-builtins
-    # the likelihood of running into an issue when shadowing a buildin
-    # with a class attribute is very low
-    "A003",
-    # flake8-bugbear
-    # fastapi recommends to use `Depend()` as an argument default.
-    # Unfortunately, exceptions are hardcoded in bugbear.
-    # https://github.com/PyCQA/flake8-bugbear/issues/62
-    "B008",
-]
 select = [
-    "A", # flake8 builtins
-    "E", # pycodestyle error
-    "W", # pycodestyle warning
-    "F", # pyflakes
-    "N", # pep8-naming
-    "UP", # pyupgrade
-    "B", # flake8-bugbear
-    "I", # isort
-    "C4", # flake8-comprehensions
+    "A",   # flake8 builtins
+    "S",   # flake8-bandit
+    "DJ",  # flake8-django
+    "PT",  # flake8-pytest-style
+    "TID", # flake8-tidy-imports
+    "INT", # flake8-gettext
+    "PTH", # flake8-use-pathlib
     "T10", # flake8-debugger
     "ERA", # flake8-eradicate
-    "G", # flake8-logging-format
-    "C9", # mccabe
+    "C4",  # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "G",   # flake8-logging-format
+    "E",   # pycodestyle error
+    "W",   # pycodestyle warning
+    "F",   # pyflakes
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "I",   # isort
+    "C9",  # mccabe
+    "I",   # isort
 ]
+
 [tool.ruff.lint.per-file-ignores]
 "**/tests/**" = [
-    "S101",     # "Use of `assert` detected"
-    "ARG",      # "Unused function argument". Fixtures are often unused.
-    "S105",     # "Possible hardcoded password".
+    "S101", # "Use of `assert` detected"
+    "ARG",  # "Unused function argument". Fixtures are often unused.
+    "S105", # "Possible hardcoded password".
+]
+"**settings/**" = [
+    "F405", # variable may be undefined due to * import
+    "F403", # allow * imports
 ]
 [tool.ruff.lint.mccabe]
 max-complexity = 10
@@ -57,10 +103,7 @@ classmethod-decorators = [
 branch = true
 
 [tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "if TYPE_CHECKING:"
-]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:"]
 omit = [
     "**/fixtures.py",
     "manage.py",
@@ -72,34 +115,24 @@ omit = [
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "{{ cookiecutter.project_name }}.settings.tests"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-norecursedirs = ["deployment*",
-                 ".git/*",
-                 ".mypy_cache/*",
-                 ".pytest_cache/*",
-                 "migrations/*",
-                 "settings/*",
-                 {%- if cookiecutter.use_react_frontend == 'y' %}
-                 "{{ cookiecutter.project_name }}/frontend/*"
-                 {%- endif %}
+norecursedirs = [
+    "deployment*",
+    ".git/*",
+    ".mypy_cache/*",
+    ".pytest_cache/*",
+    "migrations/*",
+    "settings/*",
 ]
 addopts = "--nomigrations"
 
 [tool.mypy]
 plugins = ["mypy_django_plugin.main"]
 check_untyped_defs = true
-{%- if cookiecutter.use_react_frontend == 'y' %}
-exclude = ["frontend/"]
-{%- endif %}
-
 [tool.django-stubs]
 django_settings_module = "{{ cookiecutter.project_name }}.settings.local"
 
 [[tool.mypy.overrides]]
-module = [
-    "*.migrations.*",
-    "*.settings.*",
-    "*.tests.*"
-]
+module = ["*.migrations.*", "*.settings.*", "*.tests.*"]
 ignore_errors = true
 
 [[tool.mypy.overrides]]
@@ -112,11 +145,21 @@ module = "rest_framework.*"
 ignore_missing_imports = true
 {%- endif %}
 
-{%- if cookiecutter.use_django_extensions == "y" %}
+{%- if cookiecutter.use_drf_yasg == "y" %}
+[[tool.mypy.overrides]]
+module = "drf_yasg.*"
+ignore_missing_imports = true
+{%- endif %}
+
+{%- if cookiecutter.use_celery == "y" %}
+[[tool.mypy.overrides]]
+module = "celery.*"
+ignore_missing_imports = true
+{%- endif %}
+
 [[tool.mypy.overrides]]
 module = "django_extensions.*"
 ignore_missing_imports = true
-{%- endif %}
 
 {%- if cookiecutter.use_tox == 'y' %}
 [tool.tox]
@@ -136,12 +179,12 @@ commands = ruff format --check {{ cookiecutter.project_name }}
            ruff check {{ cookiecutter.project_name }}
 
 [testenv:mypy]
-deps = -r requirements/dev.txt
+deps = mypy, django-stubs
 commands = mypy {{ cookiecutter.project_name }}
 
 [testenv]
 setenv = PYTHONPATH = {toxinidir}
-deps = -r requirements/dev.txt
+deps = pytest, pytest-django, django
 commands = pytest {{ cookiecutter.project_name }}
 """
 {%- endif %}

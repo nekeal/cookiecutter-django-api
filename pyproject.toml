@@ -1,0 +1,16 @@
+[project]
+name = "cookiecutter-django-project"
+version = "1.0.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["cookiecutter>=2.6.0", "pytest"]
+
+[dependency-groups]
+dev = ["ruff>=0.14.2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = ['\{\{cookiecutter.project_name\}\}']

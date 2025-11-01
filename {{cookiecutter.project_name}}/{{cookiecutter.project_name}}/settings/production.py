@@ -1,20 +1,17 @@
-{% if cookiecutter.use_sentry == "y" -%}
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-{%- endif %}
 
+from . import env
 from .base import *
 
 DEBUG = False
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", ["*"])
 
-{%- if cookiecutter.use_sentry == "y" %}
 sentry_sdk.init(
-    dsn="",
+    dsn=env("SENTRY_DSN", ""),
     integrations=[DjangoIntegration()],
 )
-{%- endif %}
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 

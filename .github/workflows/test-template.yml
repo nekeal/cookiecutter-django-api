@@ -1,0 +1,66 @@
+name: Test Template
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: |
+          uv sync
+
+      - name: Run template validation tests
+        run: |
+          uv run pytest
+
+  lint-generated-project:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install uv and cookiecutter
+        run: |
+          pip install uv
+
+      - name: Install dependencies
+        run: |
+          uv sync
+
+      - name: Generate project
+        run: |
+          uv run cookiecutter --config-file tests/context.yml --no-input .
+
+      - name: Change to generated project directory
+        run: |
+          cd django_app
+          git init .
+          git add .
+          uv sync
+
+      - name: Run pre-commit checks
+        run: |
+          cd django_app
+          uv run pre-commit run --all-files
+      
+      - name: Run pytest in generated project
+        run: |
+          cd django_app
+          uv run pytest

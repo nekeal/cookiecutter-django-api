@@ -1,8 +1,5 @@
 from django.contrib import admin
 from django.urls import include, path
-{%- if cookiecutter.use_react_frontend == 'y' %}
-from django.views.generic import TemplateView
-{%- endif %}
 {%- if cookiecutter.use_drf_yasg == "y" %}
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -34,17 +31,12 @@ urlpatterns = [
     path("api/", include(router.urls)),
 {%- endif %}
 {%- if cookiecutter.use_drf_yasg == "y" %}
-    path(
-        "api/doc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
-    ),
+    path("api/doc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path(
         "api/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger",
     ),
-{%- endif %}
-{%- if cookiecutter.use_react_frontend == 'y' %}
-    path("", TemplateView.as_view(template_name="index.html")),
 {%- endif %}
 {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
     path("__debug__/", include("debug_toolbar.urls")),

@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from environs import Env
+from . import env
+
 # noinspection PyUnresolvedReferences
 # flake8: noqa
 {%- if cookiecutter.use_jazzmin == "y" %}
@@ -9,8 +10,6 @@ from .conf.theme import *
 {%- if cookiecutter.use_celery == "y" %}
 from .conf.celery_settings import *
 {%- endif %}
-
-env = Env()
 
 PROJECT_NAME = "{{ cookiecutter.project_name }}"
 
@@ -52,18 +51,9 @@ THIRD_PARTY_APPS = [
 {%- if cookiecutter.use_django_debug_toolbar == "y" %}
     "debug_toolbar",
 {%- endif %}
-{%- if cookiecutter.use_jwt == "y" %}
-    "djoser",
-    "rest_framework_simplejwt",
-{%- endif %}
-{%- if cookiecutter.use_django_extensions == 'y' %}
     "django_extensions",
-{%- endif %}
 {%- if cookiecutter.use_celery == 'y' %}
     "celery",
-{%- endif %}
-{%- if cookiecutter.use_react_frontend == 'y' %}
-    "webpack_loader",
 {%- endif %}
 ]
 
@@ -158,26 +148,11 @@ LOCALE_PATHS = (BASE_DIR.joinpath("locale"),)
 # ------------- STATIC -------------
 STATIC_URL = env.str("DJANGO_STATIC_URL", default="/static/")
 STATIC_ROOT = BASE_DIR.joinpath("public")
-{%- if cookiecutter.use_react_frontend == 'y' %}
-STATICFILES_DIRS = [
-    BASE_DIR.joinpath(PROJECT_NAME, "frontend", "build", "static"),
-]
-{%- endif %}
 
 # ------------- MEDIA -------------
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.joinpath("media")
 
-{%- if cookiecutter.use_react_frontend == 'y' %}
-
-# ------------- WEBPACK ------------
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "BUNDLE_DIR_NAME": f"{PROJECT_NAME}/frontend/build/",
-        "STATS_FILE": BASE_DIR.joinpath(PROJECT_NAME, "frontend", "webpack-stats.json"),
-    }
-}
-{%- endif %}
 {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
 
 # ------------- DEBUG TOOLBAR ------------
@@ -190,11 +165,6 @@ INTERNAL_IPS = [
 
 # ------------- REST FRAMEWORK ------------
 REST_FRAMEWORK = {
-    {%- if cookiecutter.use_jwt == "y" %}
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    {%- endif %}
     {%- if cookiecutter.use_django_filters == "y" %}
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     {%- endif %}

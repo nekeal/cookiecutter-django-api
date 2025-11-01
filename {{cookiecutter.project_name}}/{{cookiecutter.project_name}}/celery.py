@@ -2,7 +2,7 @@ import logging
 import os
 
 from celery import Celery as BaseCelery
-from celery.utils.time import timezone as celery_timezone
+from celery.utils.time import timezone as celery_timezone  # type: ignore[attr-defined]
 from django.conf import settings
 from django.utils import timezone
 
@@ -39,5 +39,4 @@ def debug_task(self):
     # if you want to delay the task execution, use datetime.utcnow()
     debug_task.apply_async(eta=datetime.datetime.utcnow() + datetime.timedelta(seconds=10))
     """
-    print("Request: {0!r}".format(self.request))
-    logger.info("Request: {0!r}".format(self.request))
+    logger.info("Request: {0!r}", self.request)

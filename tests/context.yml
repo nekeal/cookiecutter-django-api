@@ -1,0 +1,15 @@
+default_context:
+  project_name: django_app
+  full_project_name: Sample Django app
+  python_version: 3.13+
+  repository_url: gitlab.deployed.pl
+  repository_path: ""
+  email: support@deployed.pl
+  description: "Project description"
+  use_jazzmin: "y"
+  use_drf: "y"
+  use_drf_yasg: "y"
+  use_django_filters: "y"
+  use_django_debug_toolbar: "y"
+  use_celery: "y"
+  use_dbbackup: "y"

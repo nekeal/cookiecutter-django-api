@@ -1,6 +1,7 @@
+from . import env
 from .base import *
 
-SECRET_KEY = "secret_key"
+SECRET_KEY = "secret_key"  # noqa: S105
 
 # ------------- DATABASES -------------
 DATABASES = {

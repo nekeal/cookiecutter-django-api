@@ -2,6 +2,8 @@
   "project_name": "django_app",
   "full_project_name": "Sample Django app",
   "python_version": [
+    "3.14+",
+    "3.13+",
     "3.12+",
     "3.8+",
     "3.9+",
@@ -9,13 +11,26 @@
     "3.11+"
   ],
   "_python_version_specs": {
+    "3.14+": {
+      "versions": [
+        "3.14"
+      ]
+    },
+    "3.13+": {
+      "versions": [
+        "3.13",
+        "3.14"
+      ]
+    },
     "3.8+": {
       "versions": [
         "3.8",
         "3.9",
         "3.10",
         "3.11",
-        "3.12"
+        "3.12",
+        "3.13",
+        "3.14"
       ]
     },
     "3.9+": {
@@ -23,25 +38,33 @@
         "3.9",
         "3.10",
         "3.11",
-        "3.12"
+        "3.12",
+        "3.13",
+        "3.14"
       ]
     },
     "3.10+": {
       "versions": [
         "3.10",
         "3.11",
-        "3.12"
+        "3.12",
+        "3.13",
+        "3.14"
       ]
     },
     "3.11+": {
       "versions": [
         "3.11",
-        "3.12"
+        "3.12",
+        "3.13",
+        "3.14"
       ]
     },
     "3.12+": {
       "versions": [
-        "3.12"
+        "3.12",
+        "3.13",
+        "3.14"
       ]
     }
   },
@@ -51,16 +74,15 @@
   "description": "",
   "use_jazzmin": "y",
   "use_drf": "y",
-  "use_drf_flex_fields": "y",
   "use_drf_yasg": "y",
-  "use_jwt": "y",
-  "use_sentry": "y",
   "use_django_filters": "y",
   "use_django_debug_toolbar": "y",
-  "use_django_extensions": "y",
   "use_tox": "y",
   "use_celery": "y",
   "use_dbbackup": "y",
-  "use_react_frontend": "n",
-  "use_pre_commit": "y"
+  "__prompts__": {
+    "description": "Project description shown in README.md",
+    "repository_path": "Repository path in format <user/project>",
+    "use_drf": "Use Django Rest Framework?"
+  }
 }

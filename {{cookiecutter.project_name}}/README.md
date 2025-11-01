@@ -7,7 +7,7 @@
 # Prerequisites
 
 ## Native way with virtualenv
-- [Python3.13](https://www.python.org/downloads/)
+- [Python{{ cookiecutter.python_version }}](https://www.python.org/downloads/)
 - [uv](https://github.com/astral-sh/uv)
 
 ## Docker way

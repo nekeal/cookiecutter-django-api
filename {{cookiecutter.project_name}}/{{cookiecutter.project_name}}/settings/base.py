@@ -150,7 +150,7 @@ STATIC_URL = env.str("DJANGO_STATIC_URL", default="/static/")
 STATIC_ROOT = BASE_DIR.joinpath("public")
 
 # ------------- MEDIA -------------
-MEDIA_URL = "/media/"
+MEDIA_URL = env.str("DJANGO_MEDIA_URL", default="/media/")
 MEDIA_ROOT = BASE_DIR.joinpath("media")
 
 {%- if cookiecutter.use_django_debug_toolbar == 'y' %}

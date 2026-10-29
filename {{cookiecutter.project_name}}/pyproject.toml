@@ -5,7 +5,7 @@ description = "{{ cookiecutter.description }}"
 requires-python = ">={{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}, <4.0"
 
 dependencies = [
-    "Django",
+    "Django>=6.1,<7.0",
     {%- if cookiecutter.use_dbbackup == "y" %}
     "django-dbbackup",
     {%- endif %}
@@ -28,7 +28,7 @@ dependencies = [
     {%- if cookiecutter.use_celery == 'y' %}
     "celery",
     {%- endif %}
-    "psycopg2-binary",
+    "psycopg[binary,pool]",
     "ipython",
     "environs",
     "pyyaml",
@@ -165,7 +165,7 @@ ignore_missing_imports = true
 [tool.tox]
 legacy_tox_ini = """
 [tox]
-envlist = py310, flake8, black, isort, mypy
+envlist = py{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0].replace('.', '') }}, ruff, mypy
 skipsdist = True
 
 [gh-actions]

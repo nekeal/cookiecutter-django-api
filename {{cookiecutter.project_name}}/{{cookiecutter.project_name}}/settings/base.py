@@ -22,6 +22,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# ------------- EMAIL -------------
+DEFAULT_FROM_EMAIL = env.str("DJANGO_DEFAULT_FROM_EMAIL", "noreply@example.com")
+
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": env.str("DJANGO_EMAIL_HOST", "localhost"),
+            "port": env.int("DJANGO_EMAIL_PORT", 25),
+            "username": env.str("DJANGO_EMAIL_HOST_USER", ""),
+            "password": env.str("DJANGO_EMAIL_HOST_PASSWORD", ""),
+            "use_tls": env.bool("DJANGO_EMAIL_USE_TLS", False),
+        },
+    },
+}
+
 # ------------- APPS -------------
 DJANGO_APPS = [
 {%- if cookiecutter.use_jazzmin == "y" %}
@@ -68,6 +84,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ------------- MIDDLEWARES -------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "django.middleware.csp.ContentSecurityPolicyMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     {%- if cookiecutter.use_django_debug_toolbar == 'y' %}
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -94,6 +111,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
+                "django.template.context_processors.csp",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
@@ -144,6 +162,12 @@ USE_I18N = True
 USE_TZ = True
 
 LOCALE_PATHS = (BASE_DIR.joinpath("locale"),)
+
+# ------------- STORAGES -------------
+STORAGES = {
+    "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+    "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+}
 
 # ------------- STATIC -------------
 STATIC_URL = env.str("DJANGO_STATIC_URL", default="/static/")

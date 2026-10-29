@@ -25,10 +25,12 @@ jobs:
         run: |
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v1
+{%- endraw %}
+      - name: Set up Python {{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "{{ cookiecutter._python_version_specs[cookiecutter.python_version]['versions'][0] }}"
+{%- raw %}
       - name: Install python requirements
         run: |
           pip install --user uv

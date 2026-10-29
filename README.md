@@ -9,7 +9,7 @@ This template provides a solid foundation for building robust and scalable Djang
 ## Features
 
 -   **Modern Python:** Python 3.12+
--   **Latest Django:** Django 5.2+
+-   **Latest Django:** Django 6.1+
 -   **Dependency Management:** `uv` for fast and reliable dependency management.
 -   **Code Quality:**
     -   `ruff` for linting and auto-formatting.
@@ -19,7 +19,7 @@ This template provides a solid foundation for building robust and scalable Djang
     -   `tox` for testing against multiple Python versions.
 -   **Containerization:**
     -   `Dockerfile` for building production-ready Docker images.
-    -   `docker-compose.yml` for local development.
+    -   `compose.yaml` for local development.
 
 ## Getting Started
 

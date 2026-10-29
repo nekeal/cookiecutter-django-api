@@ -3,6 +3,13 @@ from .base import *
 
 SECRET_KEY = "secret_key"  # noqa: S105
 
+# ------------- EMAIL -------------
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.console.EmailBackend",
+    },
+}
+
 # ------------- DATABASES -------------
 DATABASES = {
     "default": {

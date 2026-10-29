@@ -44,6 +44,12 @@ Run a command inside the docker container:
 docker compose run --rm web [command]
 ```
 
+The production Compose configuration lives in `compose.prod.yaml`:
+
+```bash
+docker compose -f compose.prod.yaml up -d
+```
+
 
 ## Pre-commit hooks
 

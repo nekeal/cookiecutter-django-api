@@ -24,3 +24,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed JWT authentication with `djoser`.
 
 ## [Unreleased]
+
+### Added
+- Django 6.1 support with `MAILERS`, report-only CSP, connection pooling, and explicit storage configuration.
+- Production security defaults for HTTPS, secure cookies, and HSTS.
+
+### Changed
+- Updated generated projects to Python 3.12+.
+- Updated the local PostgreSQL image to 18.
+- Renamed Compose files to `compose.yaml` and `compose.prod.yaml`.
+- Replaced `psycopg2-binary` with `psycopg[binary,pool]`.
+
+### Removed
+- Removed Python 3.8-3.11 support.

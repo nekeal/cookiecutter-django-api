@@ -4,6 +4,13 @@ from .base import *
 DEBUG = False
 SECRET_KEY = "secret_key"  # noqa: S105
 
+# ------------- EMAIL -------------
+MAILERS = {
+    "default": {
+        "BACKEND": "django.core.mail.backends.locmem.EmailBackend",
+    },
+}
+
 # ------------- LOGGING -------------
 LOGGING = {}
 

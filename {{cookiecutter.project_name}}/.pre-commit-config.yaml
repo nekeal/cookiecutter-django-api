@@ -27,13 +27,13 @@ repos:
         entry: uv run python manage.py makemigrations --check --dry-run
         files: "(models\\.py$|(migrations/.+\\.py))"
         pass_filenames: false
-        stages: [ commit ]
+        stages: [ pre-commit ]
         require_serial: true
       - id: mypy-check
         language: system
         name: Check for mypy
         entry: uv run mypy {{ cookiecutter.project_name }}
-        stages: [ commit ]
+        stages: [ pre-commit ]
         pass_filenames: false
         files: ".+\\.py$"
         require_serial: true
